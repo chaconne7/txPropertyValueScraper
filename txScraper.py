@@ -52,6 +52,7 @@ for row in table.findAll("tr"):
                 districtHeaderName = districtSection.find("h2").findNext("h2")
                 list_of_cells.append(districtHeaderName.string)
                 print(districtHeaderName.string)
+                
                 # append total valuation
                 valueTable = districtSection.findNext("table")
                 totalValuationRow = valueTable.findAll("tr", recursive=False)[19]
