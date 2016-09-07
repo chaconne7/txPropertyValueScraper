@@ -20,17 +20,6 @@ list_of_rows = []
 list_of_cells = ["countyName", "districtName", "totalAssessedValue", "totalSecuredAssessedValue"]
 list_of_rows.append(list_of_cells)
 
-'''hamStarURL = "http://comptroller.texas.gov/propertytax/administration/pvs/findings/2013f/0971679031D.html"
-hamStarResponse = requests.get(hamStarURL)
-hamStarHTML = hamStarResponse.content
-hamStarSoup = BeautifulSoup(hamStarHTML)
-hamStarSection = hamStarSoup.find("div", {"id": "content"})                                      
-print(hamStarSection)
-hamStarHeaderName = hamStarSection.find("h2").findNext("h2") 
-print(hamStarHeaderName)
-valueTable = hamStarSection.findNext("table") 
-print(valueTable)'''
-
 #loop through each CAD, collect data from district links on each CAD page
 for row in table.findAll("tr"):
     for col in row.findAll("td"):
@@ -68,28 +57,28 @@ for row in table.findAll("tr"):
                 totalValuationRow = valueTable.findAll("tr", recursive=False)[19]
                 totalValuation = str(totalValuationRow.findAll("td", recursive=False)[3].text)
                 totalValuation = int(re.match("([0-9,]*)(?: )", totalValuation).group(0).replace(",",""))
-        #        print("Total Valuation: " + str(totalValuation))
+                # print("Total Valuation: " + str(totalValuation))
                 list_of_cells.append(totalValuation);
 
                 # append total secured valuation
                 L1Row = valueTable.findAll("tr", recursive=False)[11]
                 L1 = L1Row.findAll("td", recursive=False)[3].text.replace(",","")
                 L1 = 0 if L1 == "" else int(L1)
-       #         print("L1: " + str(L1))
+                # print("L1: " + str(L1))
                 L2Row = valueTable.findAll("tr", recursive=False)[12]
                 L2 = L2Row.findAll("td", recursive=False)[3].text.replace(",","")
                 L2 = 0 if L2 == "" else int(L2)
-      #          print("L2: " + str(L2))
+                # print("L2: " + str(L2))
                 MRow = valueTable.findAll("tr", recursive=False)[13]
                 M = MRow.findAll("td", recursive=False)[3].text.replace(",","")
                 M = 0 if M == "" else int(M)
                 SRow = valueTable.findAll("tr", recursive=False)[16]
-     #           print ("M: " + str(M))
+                # print ("M: " + str(M))
                 S = SRow.findAll("td", recursive=False)[3].text.replace(",","")
                 S = 0 if S == "" else int(S)
-    #            print("S: " + str(S))
+                # print("S: " + str(S))
                 totalSecuredValuation = totalValuation - L1 - L2 - M - S;
-     #           print("Total Secured Valuation: " + str(totalSecuredValuation))
+                # print("Total Secured Valuation: " + str(totalSecuredValuation))
                 list_of_cells.append(totalSecuredValuation)
 
                 # append row of district information to spreadsheet
