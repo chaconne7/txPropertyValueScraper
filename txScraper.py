@@ -24,7 +24,7 @@ list_of_rows.append(list_of_cells)
 for row in table.findAll("tr"):
     for col in row.findAll("td"):
         for countyLink in col.findAll("a", href = True):
-            url = 'http://comptroller.texas.gov/propertytax/administration/pvs/findings/2013f/{}'.format(countyLink['href'])
+            url = 'https://comptroller.texas.gov/propertytax/administration/pvs/findings/2013f/{}'.format(countyLink['href'])
             countyResponse = requests.get(url)
             countyHTML = countyResponse.content
             countySoup = BeautifulSoup(countyHTML)
@@ -35,14 +35,14 @@ for row in table.findAll("tr"):
             
             # loop through each school district within the CAD
             for schoolDistrictLink in cadSection.findAll("h2"):
-             
+                
                 list_of_cells = []
                 L1, L2, M, S = 0, 0, 0, 0;
 
                 # append county name
                 list_of_cells.append(cadHeaderName);
                 urlString = schoolDistrictLink.findNext("ul").li.a['href']
-                districtURL = 'http://comptroller.texas.gov/propertytax/administration/pvs/findings/2014f/{}'.format(urlString)
+                districtURL = 'https://comptroller.texas.gov/propertytax/administration/pvs/findings/2014f/{}'.format(urlString)
                 districtResponse = requests.get(districtURL)
                 districtHTML = districtResponse.content
                 districtSoup = BeautifulSoup(districtHTML)
