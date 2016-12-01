@@ -3,7 +3,7 @@ import requests
 import re
 from BeautifulSoup import BeautifulSoup
 
-indexUrl = "http://comptroller.texas.gov/propertytax/administration/pvs/findings/2013f/"
+indexUrl = "https://comptroller.texas.gov/propertytax/administration/pvs/findings/2013f/"
 response = requests.get(indexUrl)
 html = response.content
 #print html
@@ -35,7 +35,6 @@ for row in table.findAll("tr"):
             
             # loop through each school district within the CAD
             for schoolDistrictLink in cadSection.findAll("h2"):
-                
                 list_of_cells = []
                 L1, L2, M, S = 0, 0, 0, 0;
 
@@ -60,7 +59,7 @@ for row in table.findAll("tr"):
                 totalValuation = int(re.match("([0-9,]*)(?: )", totalValuation).group(0).replace(",",""))
                 # print("Total Valuation: " + str(totalValuation))
                 list_of_cells.append(totalValuation);
-
+=
                 # append total secured valuation
                 L1Row = valueTable.findAll("tr", recursive=False)[11]
                 L1 = L1Row.findAll("td", recursive=False)[3].text.replace(",","")
